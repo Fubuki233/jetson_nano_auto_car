@@ -16,15 +16,16 @@ contours, h = cv.findContours(edged.copy(), mode=cv.RETR_EXTERNAL, method=cv.CHA
 
 largest_contours = sorted(contours, key=cv.contourArea, reverse=True)[:1]   #找到面积最大的车道
 sec_largest_contours = sorted(contours, key=cv.contourArea, reverse=True)[2:3]   #找到面积次大的车道
+#这样的方法不合理 如果图像出现比车道面积还大的块就会找错车道
 #pts = largest_contours.reshape(4, 2)
 driving_reference=img0.copy()
-numlg=0
-numse=0
-lg_x=[]
+numlg=0 #最大车道的坐标数量
+numse=0 #次大车道的坐标数量
+lg_x=[] #最大车道的x坐标 以下类同
 lg_y=[]
 se_x=[]
 se_y=[]
-for cnt in largest_contours:
+for cnt in largest_contours:    #获取最大车道的边缘坐标
 
     for i in cnt:
        lg_x.append(i[0][0])
@@ -33,7 +34,7 @@ for cnt in largest_contours:
        #print(numlg)
        numlg+=1
        print(numlg)
-for cnt in sec_largest_contours:
+for cnt in sec_largest_contours:   #次大车道的边缘坐标
 
     for i in cnt:
        se_x.append(i[0][0])
@@ -42,8 +43,8 @@ for cnt in sec_largest_contours:
        #print(numlg)
        numse+=1
        print(numse)
-for cnt in range(int(min(numlg,numse))):
-    cv.circle(driving_reference, (int((lg_x[cnt]+se_x[cnt])/2),lg_y[cnt]), 1, (0, 0, 213), 3)
+for cnt in range(int(min(numlg,numse))):    绘制路线
+    cv.circle(driving_reference, (int((lg_x[cnt]+se_x[cnt])/2),lg_y[cnt]), 1, (0, 0, 213), 3) #方法是取x平均值 以最大车道的Y坐标为路线的Y坐标 Y坐标取值可能有问题
     #cv.circle(driving_reference, (604,387), 3, (0, 0, 213), 3)
 #print(largest_contours)
 #pts = largest_contours.reshape(4, 2)#将轮廓的点重新整理成一个4x2的矩阵，即四个点，每个点两个坐标。
