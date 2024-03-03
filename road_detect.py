@@ -43,7 +43,7 @@ for cnt in sec_largest_contours:   #次大车道的边缘坐标
        #print(numlg)
        numse+=1
        print(numse)
-for cnt in range(int(min(numlg,numse))):    绘制路线
+for cnt in range(int(min(numlg,numse))):    #绘制路线
     cv.circle(driving_reference, (int((lg_x[cnt]+se_x[cnt])/2),lg_y[cnt]), 1, (0, 0, 213), 3) #方法是取x平均值 以最大车道的Y坐标为路线的Y坐标 Y坐标取值可能有问题
     #cv.circle(driving_reference, (604,387), 3, (0, 0, 213), 3)
 #print(largest_contours)
