@@ -61,7 +61,7 @@ def wrap_perspective(img, rect):
 
 if __name__ == "__main__":
     # 读取图像文件
-    img = cv2.imread("./img_1.png")
+    img = cv2.imread("./d91c1cd0a9c3464886c246431a302737.png")
     # 将图像转换为灰度
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # 使用高斯滤波降噪
@@ -70,6 +70,7 @@ if __name__ == "__main__":
     edged = cv2.Canny(blur, 50, 150)
     # 寻找边缘的轮廓
     contours, h = cv2.findContours(edged.copy(), mode=cv2.RETR_EXTERNAL, method=cv2.CHAIN_APPROX_SIMPLE)
+    #cv2.imshow("Original Image", contours)
     # 对找到的轮廓按面积大小排序，并取最大的五个
     largest_contours = sorted(contours, key=cv2.contourArea, reverse=True)[:5]
     # 获取收据的轮廓
