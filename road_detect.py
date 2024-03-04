@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 import cv2 as cv
 import numpy as np
 
-img0 = cv.imread('./photos/R.jpg')
-img0 = img0[0:300,600:1000] #这里截取摄像头拍摄到的路面部分 因为摄像头相对位置固定 所以只需要调整一次
+img0 = cv.imread('./photos/sss.png')
+#img0 = img0[0:300,600:1000] #这里截取摄像头拍摄到的路面部分 因为摄像头相对位置固定 所以只需要调整一次
 gray = cv.cvtColor(img0,cv.COLOR_BGR2GRAY)
 blur = cv.GaussianBlur(gray, (5, 5), 0)
 #img0 = cv.resize(img0, (600, 600))  # 改为600*600大小的
@@ -46,7 +46,7 @@ for cnt in range(int(min(numlg,numse)/2)):    #绘制路线
 #pts = largest_contours.reshape(4, 2)#将轮廓的点重新整理成一个4x2的矩阵，即四个点，每个点两个坐标。
 #print(pts)
 contour=img0.copy()
-cv.drawContours(contour,sec_largest_contours,-1,(0,0,255),3)
+cv.drawContours(contour,largest_contours,-1,(0,0,255),3)
 
 #cv.namedWindow('Image', 0)
 cv.imshow("orgin", img0)
