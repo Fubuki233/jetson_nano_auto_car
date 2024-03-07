@@ -13,8 +13,8 @@ def color_detect(img):
     lower_blue = np.array([11, 43, 46])
     upper_blue = np.array([34, 255, 255])
     yellow_mask = cv.inRange(hsv, lower_blue, upper_blue)
-    cv.imwrite('yellow_mask.jpg', yellow_mask)
-
+    cv.imwrite('./photos/yellow_mask.jpg', yellow_mask)
+    img_show(yellow_mask,"yellow")
 # 白色线检测
     lower_blue = np.array([0, 0, 200])
     upper_blue = np.array([180, 30, 255])
@@ -63,14 +63,18 @@ def find_edge(img):
     #print(pts)
     contour=img0.copy()
     cv.drawContours(contour,largest_contours,-1,(0,0,255),3)
-
+    cv.drawContours(contour,sec_largest_contours,-1,(0,0,255),3)
+    img_show(contour,'ss')
+    img_show(driving_reference,'ss1')
     #cv.namedWindow('Image', 0)
 def img_show(img,name):
     cv.imshow(name, img)
-yellow = cv.imread('./yellow_mask.jpg')
+yellow = cv.imread('./photos/y.png')
 color_detect(yellow)
-find_edge()
-img_show(yellow,'yellow')
+yellow_edge=cv.imread('./photos/yellow_mask.jpg')
+img_show(yellow_edge,'yellow')
+find_edge(yellow_edge)
+
 #cv.imshow("orgin", img0)
 #cv.imshow("Image", img1)
 #cv.imshow("contours", contour)
