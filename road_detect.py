@@ -24,10 +24,10 @@ def find_edge(img):
     gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
     blur = cv.GaussianBlur(gray, (5, 5), 0)
     ret, img1 = cv.threshold(blur, 180, 255, cv.THRESH_BINARY)  # 二值化
-    edged = cv.Canny(img1, 50, 150)
+    edged = cv.Canny(img1,80, 100)
     contours, h = cv.findContours(edged.copy(), mode=cv.RETR_EXTERNAL, method=cv.CHAIN_APPROX_NONE)   #只储存车道的顶点数据 只检测外轮廓
-    largest_contours = sorted(contours, key=cv.contourArea, reverse=True)[:1]   #找到面积最大的车道
-    sec_largest_contours = sorted(contours, key=cv.contourArea, reverse=True)[2:3]   #找到面积第三大的车道
+    largest_contours = sorted(contours, key=cv.contourArea, reverse=True)[0:1]   #找到面积最大的车道
+    sec_largest_contours = sorted(contours, key=cv.contourArea, reverse=True)[1:2]   #找到面积第2大的车道
     #这样的方法不合理 如果图像出现比车道面积还大的块就会找错车道
     #pts = largest_contours.reshape(4, 2)
     driving_reference=img0.copy()
