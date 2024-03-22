@@ -10,11 +10,14 @@ def color_detect(img):
     hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
 
 # 红色线检测
-    lower_red = np.array([0, 70, 72])
-    upper_red = np.array([7, 255, 255])
-    red_mask = cv.inRange(hsv, lower_red, upper_red)
+    lower_red = np.array([0, 50, 50])
+    upper_red = np.array([10, 255, 255])
+    lower_red2 = np.array([170, 50, 50])
+    upper_red2 = np.array([180, 255, 255])
+    red_mask1 = cv.inRange(hsv, lower_red, upper_red)
+    red_mask2 = cv.inRange(hsv, lower_red2, upper_red2)
     #red_mask = cv.bitwise_and(frame, frame, mask=red_mask)
-    red_mask=cv.bitwise_not(red_mask)
+    red_mask = cv.bitwise_or(red_mask1, red_mask2)
     cv.imwrite('./photos/red_mask.jpg', red_mask)
     img_show(red_mask,"red")
 # 白色线检测
@@ -77,7 +80,7 @@ def find_edge(img):
     #cv.namedWindow('Image', 0)
 def img_show(img,name):
     cv.imshow(name, img)
-yellow = cv.imread('./photos/aaa.jpg')
+yellow = cv.imread('./photos/aaas.jpg')
 color_detect(yellow)
 #yellow_edge=cv.imread('./photos/yellow_mask.jpg')
 #img_show(yellow_edge,'yellow')
