@@ -56,6 +56,7 @@ if(leftx_base>40):
 elif(np.min(histogram[:center_r],axis=0)>255*100):
     print("left lane dosnt exist")
     leftx_base = np.argmin(histogram[:rightpoint], axis=0)
+
 print(leftx_base, rightx_base)
 
 
