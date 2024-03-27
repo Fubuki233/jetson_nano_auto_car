@@ -89,7 +89,7 @@ left_sum_value = int(np.sum(histogram[:center_r], axis=0)) / 159
 right_sum_value = int(np.sum(histogram[center_r:], axis=0)) / 159
 # print("left_sum_value = %d", left_sum_value)
 # print("right_sum_value = %d", right_sum_value)
-# 5、计算偏差值
+# 5、计算偏差
 Bias = 159 - lane_center
 cv2.putText(dst_binaryzation, "Bias: " + str(int(Bias)), (10, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 1)
 cv2.putText(dst_binaryzation, "rightx_base: " + str(int(rightx_base)), (10, 45), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 0), 1)
