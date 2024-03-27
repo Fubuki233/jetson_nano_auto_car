@@ -18,13 +18,14 @@ def color_detect(img):
     red_mask2 = cv.inRange(hsv, lower_red2, upper_red2)
     #red_mask = cv.bitwise_and(frame, frame, mask=red_mask)
     red_mask = cv.bitwise_or(red_mask1, red_mask2)
-    cv.imwrite('./photos/red_mask.jpg', red_mask)
-    img_show(red_mask,"red")
+    #cv.imwrite('./photos/red_mask.jpg', red_mask)
+    #img_show(red_mask,"red")
 # 白色线检测
-    lower_blue = np.array([0, 0, 200])
-    upper_blue = np.array([180, 30, 255])
-    black_mask = cv.inRange(hsv, lower_blue, upper_blue)
-    cv.imwrite('black_mask.jpg', black_mask)
+    lower_green = np.array([35, 43, 46])
+    upper_green = np.array([99, 255, 255])
+    green_mask = cv.inRange(hsv,lower_green,upper_green)
+    cv.imwrite('black_mask.jpg', green_mask)
+    img_show(green_mask, "green")
 def find_edge(img):
     gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
     blur = cv.GaussianBlur(gray, (5, 5), 0)
@@ -80,13 +81,32 @@ def find_edge(img):
     #cv.namedWindow('Image', 0)
 def img_show(img,name):
     cv.imshow(name, img)
-yellow = cv.imread('./photos/aaas.jpg')
+def white_balance_1(img):
+    r, g, b = cv.split(img)
+    r_avg = cv.mean(r)[0]
+    g_avg = cv.mean(g)[0]
+    b_avg = cv.mean(b)[0]
+
+    k = (r_avg + g_avg + b_avg) / 3
+    kr = k / r_avg
+    kg = k / g_avg
+    kb = k / b_avg
+
+    r = cv.addWeighted(src1=r, alpha=kr, src2=0, beta=0, gamma=0)
+    g = cv.addWeighted(src1=g, alpha=kg, src2=0, beta=0, gamma=0)
+    b = cv.addWeighted(src1=b, alpha=kb, src2=0, beta=0, gamma=0)
+
+    balance_img = cv.merge([b, g, r])
+    return balance_img
+
+yellow = cv.imread('./photos/green1.jpg')
+##yellow=white_balance_1(yellow)
 color_detect(yellow)
 #yellow_edge=cv.imread('./photos/yellow_mask.jpg')
 #img_show(yellow_edge,'yellow')
 #find_edge(yellow_edge)
 
-#cv.imshow("orgin", img0)
+cv.imshow("orgin", yellow)
 #cv.imshow("Image", img1)
 #cv.imshow("contours", contour)
 #cv.imshow("driving_reference", driving_reference)

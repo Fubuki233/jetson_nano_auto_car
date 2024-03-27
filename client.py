@@ -1,11 +1,12 @@
 import socket
 from pynput import keyboard
-# 1.创建socket
+# 1.创建socketw
 tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # 2. 链接服务器
 server_addr = ("192.168.232.206", 7788)
-tcp_socket.connect(server_addr)
+a=tcp_socket.connect(server_addr)
+print(a)
 def on_press(key):
     try:
         print('alphanumeric key {0} pressed'.format(
@@ -19,8 +20,29 @@ def on_press(key):
             #time.sleep(0.1)
             #car.Car_Stop()
         if format(key.char)=='s':
-            print('running in straight direction')
+            print('running in backward direction')
             send_data ='s'
+            tcp_socket.send(send_data.encode("gbk"))
+            #car.Car_Run(150, 150)
+            #time.sleep(0.1)
+            #car.Car_Stop()
+        if format(key.char)=='a':
+            print('running in left direction')
+            send_data ='a'
+            tcp_socket.send(send_data.encode("gbk"))
+            #car.Car_Run(150, 150)
+            #time.sleep(0.1)
+            #car.Car_Stop()
+        if format(key.char)=='d':
+            print('running in right direction')
+            send_data ='d'
+            tcp_socket.send(send_data.encode("gbk"))
+            #car.Car_Run(150, 150)
+            #time.sleep(0.1)
+            #car.Car_Stop()
+        if format(key.char)=='Key.shift':
+            print('running slow')
+            send_data ='p'
             tcp_socket.send(send_data.encode("gbk"))
             #car.Car_Run(150, 150)
             #time.sleep(0.1)
@@ -33,8 +55,9 @@ def on_press(key):
 def on_release(key):
     print('{0} released'.format(
         key))
-    send_data = '-'
-    print(send_data)
+    send_data = 'm'
+    tcp_socket.send(send_data.encode("gbk"))
+    print('awd')
     if key == keyboard.Key.esc:
         # Stop listener
         return False

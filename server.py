@@ -1,8 +1,8 @@
-import YB_Pcb_Car  # 导入亚博智能专用的底层库文件
+#import YB_Pcb_Car  # 导入亚博智能专用的底层库文件
 
-car = YB_Pcb_Car.YB_Pcb_Car()
-car.Ctrl_Servo(4, 80)
-car.Ctrl_Servo(2, 110)
+#car = YB_Pcb_Car.YB_Pcb_Car()
+#car.Ctrl_Servo(4, 80)
+#car.Ctrl_Servo(2, 110)
 import socket
 # import YB_Pcb_Car as car
 import time
@@ -29,15 +29,18 @@ client_socket, clientAddr = tcp_server_socket.accept()
 # 接收对方发送过来的数据
 while (1):
     recv_data = client_socket.recv(1024)  # 接收1024个字节
-    # print('接收到的数据为:', recv_data.decode('gbk'))
+    print('接收到的数据为:', recv_data.decode('gbk'))
     if recv_data.decode('gbk') == 'w':
-        car.Car_Run(150, 150)
-    if recv_data.decode('gbk') == '-':
         time.sleep(0.07)
-        car.Car_Stop()
+        print("w")
+ #       car.Car_Run(150, 150)
+    if recv_data.decode('gbk') == 'm':
+        time.sleep(0.07)
+        print("wawd")
+        #car.Car_Stop()
     if recv_data.decode('gbk') == 's':
-        car.Car_Back(150, 150)
+ #       car.Car_Back(150, 150)
         time.sleep(0.07)
-        car.Car_Stop()
+ #       car.Car_Stop()
 
 client_socket.close()
