@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import cv2 as cv2
 import numpy as np
-frame = cv2.imread('./photos/blkr.png')
+frame = cv2.imread('./photos/blkm1.png')
 frame = cv2.resize(frame, (320, 240))
 # 2、透视变换 (查看俯视图)
 matSrc = np.float32([[0, 149], [320, 149], [281, 72], [43, 72]])
@@ -51,23 +51,29 @@ leftx_base = np.argmin(histogram[:center_r], axis=0)
 rightx_base = np.argmin(histogram[::-1][:center_r], axis=0)  # 反转直方图取最右侧的值
 print(np.min(histogram[:center_r],axis=0))
 print(np.min(histogram[::-1][:center_r],axis=0))
+llne=0
+rlne=0
 if(leftx_base>40):
     print("left lane exists")
 elif(np.min(histogram[:center_r],axis=0)>255*100):
     print("left lane dosnt exist")
+    llne=1
     leftx_base = np.argmin(histogram[:rightpoint], axis=0)
 
 print(leftx_base, rightx_base)
-
-
 if(rightx_base>40):
     #print(leftx_base, rightx_base)
     print("right lane exists")
 elif(np.min(histogram[::-1][:center_r],axis=0)>255*100):
     print("right lane dosnt exist")
+    rlne=1
     rightx_base = np.argmin(histogram[::-1][:rightpoint], axis=0)
 else:
     print("right lane exists")
+if(llne==1 and rlne==1):
+    print("no lane exists or lane lies in the graph")
+    if(np.min(histogram[::-1][:center_r],axis=0)>255*130 or np.min(histogram[:center_r],axis=0)>255*130):
+        print("lane lies")
 rightx_base = 319 - rightx_base
 print(leftx_base, rightx_base)
 dst_binaryzation = cv2.cvtColor(dst_binaryzation, cv2.COLOR_GRAY2RGB)
