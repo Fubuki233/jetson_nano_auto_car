@@ -23,10 +23,6 @@ def on_press(key):
             print('running in backward direction')
             send_data ='s'
             tcp_socket.send(send_data.encode("gbk"))
-        if format(key.char) == 's':
-            print('stop')
-            send_data = 'q'
-            tcp_socket.send(send_data.encode("gbk"))
             #car.Car_Run(150, 150)
             #time.sleep(0.1)
             #car.Car_Stop()
