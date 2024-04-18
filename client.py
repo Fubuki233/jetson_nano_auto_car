@@ -4,7 +4,7 @@ from pynput import keyboard
 tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # 2. 链接服务器
-server_addr = ("192.168.232.206", 7788)
+server_addr = ("192.168.133.206", 7788)
 a=tcp_socket.connect(server_addr)
 print(a)
 def on_press(key):
@@ -22,6 +22,10 @@ def on_press(key):
         if format(key.char)=='s':
             print('running in backward direction')
             send_data ='s'
+            tcp_socket.send(send_data.encode("gbk"))
+        if format(key.char) == 's':
+            print('stop')
+            send_data = 'q'
             tcp_socket.send(send_data.encode("gbk"))
             #car.Car_Run(150, 150)
             #time.sleep(0.1)
